@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Hot Music Videos</string>
+ 
+
+  <string name="menu_settings">Settings</string>
+  
+  <!--Youtube-->
+  <string name="error_player">There was an error initializing the YouTubePlayer ({0})</string>
+
+</resources>
