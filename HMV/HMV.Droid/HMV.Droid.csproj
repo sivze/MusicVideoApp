@@ -58,8 +58,13 @@
       <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Square.OkHttp">
+    <Reference Include="Square.OkHttp, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Square.OkHttp.2.4.0.1\lib\MonoAndroid\Square.OkHttp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Square.OkIO, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Square.OkIO.1.5.0.0\lib\MonoAndroid\Square.OkIO.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Square.Picasso, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Square.Picasso.2.5.2.1\lib\MonoAndroid\Square.Picasso.dll</HintPath>
@@ -100,8 +105,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\MainActivity.cs" />
-    <Compile Include="Fragments\VideoInfoFragment.cs" />
-    <Compile Include="Activities\YouTubeFailureRecoveryActivity.cs" />
+    <Compile Include="Adapters\MainActivityPagerAdapter.cs" />
+    <Compile Include="Fragments\PlayerFragment.cs" />
     <Compile Include="Activities\PlayerActivity.cs" />
     <Compile Include="Adapters\VideosAdapter.cs" />
     <Compile Include="Fragments\VideosFragment.cs" />
@@ -292,7 +297,7 @@
     <AndroidResource Include="Resources\values-sw600dp\styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\fragment_video_info.xml">
+    <AndroidResource Include="Resources\layout\fragment_player.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -300,6 +305,10 @@
     <XamarinComponentReference Include="cheeseknife">
       <Visible>False</Visible>
       <Version>1.0</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="square.picasso">
+      <Visible>False</Visible>
+      <Version>2.5.2.2</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

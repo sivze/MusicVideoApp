@@ -66,7 +66,7 @@ namespace HMV.Shared.Service
                 else
                     return null;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }

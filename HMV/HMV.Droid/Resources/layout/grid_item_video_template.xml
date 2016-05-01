@@ -7,8 +7,7 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
     <ImageView
         android:id="@+id/grid_item_video_thumbnail_image_view"
         android:scaleType="fitXY"
@@ -19,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
-        
         android:layout_gravity="center_vertical"
         android:padding="@dimen/grid_item_video_title_layout_padding"
         android:orientation="vertical">

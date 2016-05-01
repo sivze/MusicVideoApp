@@ -3,4 +3,5 @@
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="21" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:label="Music Videos" android:theme="@style/Theme.DesignDemo" android:icon="@drawable/icon"></application>
+ 
 </manifest>

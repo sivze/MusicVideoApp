@@ -17,6 +17,7 @@ using Android.Util;
 using HMV.Droid.Activities;
 using Android.Graphics;
 using Android.Content.Res;
+using HMV.Droid.Fragments;
 
 namespace HMV.Droid.Adapters
 {
@@ -24,7 +25,7 @@ namespace HMV.Droid.Adapters
     {
         private List<YoutubeItem> videosList;
         private Activity context;
-        private int selected_position;
+        private VideoHolder videoHolder;
 
         public event EventHandler<int> ItemClick;
 
@@ -39,13 +40,14 @@ namespace HMV.Droid.Adapters
             var view = LayoutInflater.From(parent.Context)
                     .Inflate(Resource.Layout.grid_item_video_template, parent, false);
 
+
+
             return new VideoHolder(view, OnClick);
         }
 
-
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            var videoHolder = holder as VideoHolder;
+            videoHolder = holder as VideoHolder;
 
             YoutubeItem youTubeItem = videosList.ElementAt(position);
 
@@ -56,28 +58,11 @@ namespace HMV.Droid.Adapters
                 string videoThumbnailUrl = youTubeItem.snippet.thumbnails.medium.url;
                 string videoPublishedDate = youTubeItem.snippet.publishedAt.Substring(0, 10);
 
-                if (selected_position == position)
+
+                if (VideosFragment.selectedItemPosition == position)
                     videoHolder.titleLayout.SetBackgroundColor(context.Resources.GetColor(Resource.Color.colorPrimaryTransparent));
                 else
                     videoHolder.titleLayout.SetBackgroundColor(Color.White);
-
-                if (videoHolder.ClickHandler != null)
-                    videoHolder.View.Click -= videoHolder.ClickHandler;
-
-                videoHolder.ClickHandler = new EventHandler((sender, e) =>
-                {
-                    // Updating old as well as new positions
-                    NotifyItemChanged(selected_position);
-                    selected_position = position;
-                    NotifyItemChanged(selected_position);
-
-                    var context = videoHolder.View.Context;
-                    var intent = new Intent(context, typeof(PlayerActivity));
-                    intent.PutExtra(PlayerActivity.PLAYER_ACTIVITY_EXTRA, videoID);
-
-                    context.StartActivity(intent);
-                });
-                videoHolder.View.Click += videoHolder.ClickHandler;
 
                 videoHolder.videoTitle.Text = videoTitle;
                 videoHolder.videoPublishedDate.Text = videoPublishedDate;
@@ -87,6 +72,7 @@ namespace HMV.Droid.Adapters
                     .Into(videoHolder.videoThumbnail);
             }
         }
+
         public override int ItemCount
         {
             get
@@ -100,6 +86,15 @@ namespace HMV.Droid.Adapters
 
         void OnClick(int position)
         {
+            // Updating old as well as new positions
+
+            if (VideosFragment.selectedItemPosition != RecyclerView.InvalidType)
+                NotifyItemChanged(VideosFragment.selectedItemPosition);
+
+            VideosFragment.selectedItemPosition = position;
+
+            NotifyItemChanged(VideosFragment.selectedItemPosition);
+
             if (ItemClick != null)
                 ItemClick(this, position);
         }
@@ -129,8 +124,6 @@ namespace HMV.Droid.Adapters
             public LinearLayout titleLayout;
 
             public View View { get; set; }
-            public EventHandler ClickHandler { get; set; }
-
 
             public VideoHolder(View view, Action<int> listener) : base(view)
             {

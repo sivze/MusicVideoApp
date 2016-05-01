@@ -12,23 +12,19 @@ using Android.Widget;
 using Google.YouTube.Player;
 using HMV.Droid.Util;
 using HMV.Droid.Fragments;
+using Android.Support.V4.App;
+using Android.Support.V7.Widget;
+using Android.Support.V7.App;
+using Android.Content.Res;
 
 namespace HMV.Droid.Activities
 {
-    [Activity(Label = "YoutubePlayerActivity")]
-    public class PlayerActivity : YouTubeFailureRecoveryActivity
+    [Activity(Label = "YoutubePlayerActivity",
+        ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    public class PlayerActivity : AppCompatActivity
     {
         public static string PLAYER_ACTIVITY_EXTRA = "player_activity_extra";
-        private static string videoId; 
-
-        #region implemented abstract members of YouTubeFailureRecoveryActivity
-
-        protected override IYouTubePlayerProvider GetYouTubePlayerProvider()
-        {
-            return FindViewById<YouTubePlayerView>(Resource.Id.activity_player_youtube);
-        }
-
-        #endregion
+        private static string videoId;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,30 +32,23 @@ namespace HMV.Droid.Activities
 
             SetContentView(Resource.Layout.activity_player);
 
-            videoId = Intent.GetStringExtra(PLAYER_ACTIVITY_EXTRA);
+            int position = Intent.GetIntExtra(PLAYER_ACTIVITY_EXTRA, RecyclerView.InvalidType);
 
-            YouTubePlayerView youTubeView = FindViewById<YouTubePlayerView>(Resource.Id.activity_player_youtube);
-            youTubeView.Initialize(KeyKeeper.YOUTUBE_API_KEY, this);
-
+            if (position != RecyclerView.InvalidType)
+                videoId = VideosFragment.videosList.ElementAt(position).snippet.resourceId.videoId;
 
             Bundle arguments = new Bundle();
-            arguments.PutString(VideoInfoFragment.PLAYER_FRAGMENT_EXTRA, videoId);
+            arguments.PutInt(PlayerFragment.FRAGMENT_PLAYER_EXTRA, position);
 
-            VideoInfoFragment fragment = new VideoInfoFragment();
+            PlayerFragment fragment = new PlayerFragment();
             fragment.Arguments = arguments;
 
             FragmentManager.BeginTransaction()
-                .Add(Resource.Id.activity_player_video_info_container, fragment)
+                .Add(Resource.Id.activity_player_fragment_container, fragment, "")
                 .Commit();
         }
 
-        public override void OnInitializationSuccess(IYouTubePlayerProvider provider, IYouTubePlayer player, bool wasRestored)
-        {
-            if (!wasRestored)
-            {
-                player.LoadVideo(videoId);
-                player.SetShowFullscreenButton(false);
-            }
-        }
+       
+
     }
 }
