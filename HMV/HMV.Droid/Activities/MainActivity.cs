@@ -2,28 +2,20 @@
 
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Android.Support.V7.App;
 using V7Toolbar = Android.Support.V7.Widget.Toolbar;
 
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
-using System.Collections.Generic;
-using HMV.Shared.Service;
-using HMV.Shared.Models;
-using HMV.Shared;
 using HMV.Droid.Fragments;
 using HMV.Droid.Activities;
 using HMV.Droid.Adapters;
-using Android.Content.Res;
 
 namespace HMV.Droid
 {
-    [Activity(Label = "Music Videos", MainLauncher = true, Icon = "@drawable/icon"
-       )]
+    [Activity(Label = "Music Videos", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : AppCompatActivity, VideosFragment.ICallback
     {
         DrawerLayout drawerLayout;
@@ -31,6 +23,8 @@ namespace HMV.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             SetContentView(Resource.Layout.activity_main);
 
@@ -119,7 +113,7 @@ namespace HMV.Droid
             else
             {
                 var intent = new Intent(this, typeof(PlayerActivity));
-                intent.PutExtra(PlayerActivity.PLAYER_ACTIVITY_EXTRA, position);
+                //intent.PutExtra(PlayerActivity.PLAYER_ACTIVITY_EXTRA, position);
                 StartActivity(intent);
             }
         }

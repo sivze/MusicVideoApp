@@ -1,22 +1,18 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Com.Lilarcor.Cheeseknife;
 using Google.YouTube.Player;
 using HMV.Droid.Util;
-using HMV.Droid.Activities;
-using Square.Picasso;
 using HMV.Shared.Models;
 using Android.Support.V7.Widget;
 using Android.Content.Res;
+using HMV.Shared;
 
 namespace HMV.Droid.Fragments
 {
@@ -42,13 +38,12 @@ namespace HMV.Droid.Fragments
         private Context context;
         private View view;
         private static int RECOVERY_DIALOG_REQUEST = 1;
-        private YoutubeItem youtubeItem;
+        private Video video;
         YouTubePlayerFragment youTubePlayerFragment;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -59,14 +54,10 @@ namespace HMV.Droid.Fragments
             Cheeseknife.Inject(this, view);
 
             int item_position = VideosFragment.selectedItemPosition;
-            //if (Arguments != null)
-            //{
-            //    item_position = Arguments.GetInt(FRAGMENT_PLAYER_EXTRA);
-            //}
 
             if (item_position != RecyclerView.InvalidType)
             {
-                youtubeItem = VideosFragment.videosList.ElementAt(item_position);
+                video = App.VideosList.ElementAt(item_position);
                 youTubePlayerFragment = new YouTubePlayerFragment();
                 youTubePlayerFragment.Initialize(KeyKeeper.YOUTUBE_API_KEY, this);
 
@@ -76,23 +67,17 @@ namespace HMV.Droid.Fragments
                                    .Replace(Resource.Id.fragment_player_youtube_container, youTubePlayerFragment)
                                    .Commit();
                 }
-                //try
-                //{
-                //    Picasso.With(context)
-                //        .Load(youtubeItem.snippet.thumbnails.standard.url)
-                //        .Into(videoThumbnail);
-                //}
-                //catch(Exception e)
-                //{
 
-                //}
+                //Picasso.With(context)
+                //    .Load(youtubeItem.snippet.thumbnails.standard.url)
+                //    .Into(videoThumbnail);
 
-                videoTitle.Text = youtubeItem.snippet.title;
+                videoTitle.Text = video.Title;
 
                 playerContainer.Visibility = ViewStates.Visible;
                 divider.Visibility = ViewStates.Visible;
 
-                videoDesc.Text = youtubeItem.snippet.description;
+                videoDesc.Text = video.Description;
             }
             return view;
         }
@@ -114,7 +99,7 @@ namespace HMV.Droid.Fragments
         {
             if (!wasRestored)
             {
-                player.LoadVideo(youtubeItem.snippet.resourceId.videoId);
+                player.LoadVideo(video.VideoId);
                 player.SetShowFullscreenButton(false);
             }
         }

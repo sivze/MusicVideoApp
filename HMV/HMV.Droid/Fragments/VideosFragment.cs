@@ -1,25 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using Android.Views;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Widget;
 using Android.Content;
-using Android.Util;
-using Android.Runtime;
 
 using Com.Lilarcor.Cheeseknife;
 
-using Java.Lang;
 using HMV.Droid.Adapters;
 using HMV.Shared.Models;
 using HMV.Shared.Service;
-using Android.App;
-using Android.Graphics;
-using HMV.Droid.Activities;
+using HMV.Shared;
 
 namespace HMV.Droid.Fragments
 {
@@ -28,7 +21,10 @@ namespace HMV.Droid.Fragments
         [InjectView(Resource.Id.fragment_videos_recyclerview)]
         RecyclerView recylerView;
 
-        public static List<YoutubeItem> videosList;
+        [InjectView(Resource.Id.fragment_videos_progress_bar)]
+        ProgressBar progressBar;
+
+        public static List<Video> videosList;
 
         private VideosAdapter videosAdapter;
         private Context context;
@@ -41,17 +37,16 @@ namespace HMV.Droid.Fragments
             /**
              * FragmentCallback for when an item has been selected.
              */
-            void OnItemSelected(int youtubeItem);
+            void OnItemSelected(int position);
         }
         public VideosFragment()
         {
-
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            videosList = new List<YoutubeItem>();
+            videosList = new List<Video>();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -73,7 +68,7 @@ namespace HMV.Droid.Fragments
             {
                 selectedItemPosition = savedInstanceState.GetInt(SELECTED_ITEM_KEY);
             }
-
+            progressBar.Visibility = ViewStates.Visible;
             loadAndBindVideos();
             return view;
         }
@@ -94,8 +89,13 @@ namespace HMV.Droid.Fragments
 
         private async void loadAndBindVideos()
         {
-            videosList = await YoutubeService.loadDataAsync();
+            if(App.VideosList==null)
+                videosList = await YoutubeService.loadDataAsync();
+
+            videosList = App.VideosList;
             videosAdapter.addVideos(videosList);
+
+            progressBar.Visibility = ViewStates.Invisible;
 
             if (selectedItemPosition != RecyclerView.InvalidType)
                 recylerView.SmoothScrollToPosition(selectedItemPosition);

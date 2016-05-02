@@ -1,35 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using Com.Lilarcor.Cheeseknife;
 using Square.Picasso;
 using HMV.Shared.Models;
-using Android.Util;
-using HMV.Droid.Activities;
 using Android.Graphics;
-using Android.Content.Res;
 using HMV.Droid.Fragments;
 
 namespace HMV.Droid.Adapters
 {
     public class VideosAdapter : RecyclerView.Adapter
     {
-        private List<YoutubeItem> videosList;
+        private List<Video> videosList;
         private Activity context;
         private VideoHolder videoHolder;
 
         public event EventHandler<int> ItemClick;
 
-        public VideosAdapter(Activity context, List<YoutubeItem> videosList)
+        public VideosAdapter(Activity context, List<Video> videosList)
         {
             this.videosList = videosList;
             this.context = context;
@@ -40,8 +33,6 @@ namespace HMV.Droid.Adapters
             var view = LayoutInflater.From(parent.Context)
                     .Inflate(Resource.Layout.grid_item_video_template, parent, false);
 
-
-
             return new VideoHolder(view, OnClick);
         }
 
@@ -49,15 +40,14 @@ namespace HMV.Droid.Adapters
         {
             videoHolder = holder as VideoHolder;
 
-            YoutubeItem youTubeItem = videosList.ElementAt(position);
+            Video video = videosList.ElementAt(position);
 
-            if (youTubeItem != null)
+            if (video != null)
             {
-                string videoID = youTubeItem.snippet.resourceId.videoId;
-                string videoTitle = youTubeItem.snippet.title;
-                string videoThumbnailUrl = youTubeItem.snippet.thumbnails.medium.url;
-                string videoPublishedDate = youTubeItem.snippet.publishedAt.Substring(0, 10);
-
+                string videoID = video.VideoId;
+                string videoTitle = video.Title;
+                string videoThumbnailUrl = video.ThumbnailMedium;
+                string videoPublishedDate = video.PublishedAt;
 
                 if (VideosFragment.selectedItemPosition == position)
                     videoHolder.titleLayout.SetBackgroundColor(context.Resources.GetColor(Resource.Color.colorPrimaryTransparent));
@@ -99,11 +89,11 @@ namespace HMV.Droid.Adapters
                 ItemClick(this, position);
         }
 
-        public void addVideos(List<YoutubeItem> data)
+        public void addVideos(List<Video> data)
         {
             if (data == null)
             {
-                data = new List<YoutubeItem>();
+                data = new List<Video>();
             }
             videosList = data;
             NotifyDataSetChanged();

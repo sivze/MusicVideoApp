@@ -1,4 +1,8 @@
-/.vs
+.*
+!/.gitignore
+!/.vs
+.vs
 /bin
 /obj
 /KeyKeeper.cs
+packages

@@ -4,7 +4,6 @@ using System.Text;
 
 namespace HMV.Shared.Models
 {
-
     public class YoutubeResponse
     {
         public string kind { get; set; }
@@ -13,5 +12,4 @@ namespace HMV.Shared.Models
         public PageInfo pageInfo { get; set; }
         public List<YoutubeItem> items { get; set; }
     }
-
 }
