@@ -13,10 +13,12 @@ using HMV.Droid.Adapters;
 using HMV.Shared.Models;
 using HMV.Shared.Service;
 using HMV.Shared;
+using Android.Support.V4.Widget;
+using Android.Support.V4.Content;
 
 namespace HMV.Droid.Fragments
 {
-    public class VideosFragment : Android.Support.V4.App.Fragment
+    public class VideosFragment : Android.Support.V4.App.Fragment, SwipeRefreshLayout.IOnRefreshListener
     {
         [InjectView(Resource.Id.fragment_videos_recyclerview)]
         RecyclerView recylerView;
@@ -24,7 +26,10 @@ namespace HMV.Droid.Fragments
         [InjectView(Resource.Id.fragment_videos_progress_bar)]
         ProgressBar progressBar;
 
-        public static List<Video> videosList;
+        [InjectView(Resource.Id.fragment_videos_swipe_refresh_layout)]
+        SwipeRefreshLayout swipeRefreshLayout;
+
+        private List<Video> videosList;
 
         private VideosAdapter videosAdapter;
         private Context context;
@@ -55,6 +60,12 @@ namespace HMV.Droid.Fragments
             context = view.Context;
             Cheeseknife.Inject(this, view);
 
+            int progressViewOffsetStart = this.Activity.Resources.GetInteger(Resource.Integer.progress_view_offset_start);
+            int progressViewOffsetEnd = this.Activity.Resources.GetInteger(Resource.Integer.progress_view_offset_end);
+
+            //set progress bar draggable length
+            swipeRefreshLayout.SetProgressViewOffset(true, progressViewOffsetStart, progressViewOffsetEnd);
+
             LinearLayoutManager layoutManager = new LinearLayoutManager(context);
 
             recylerView.SetLayoutManager(layoutManager);
@@ -68,8 +79,13 @@ namespace HMV.Droid.Fragments
             {
                 selectedItemPosition = savedInstanceState.GetInt(SELECTED_ITEM_KEY);
             }
+            
             progressBar.Visibility = ViewStates.Visible;
             loadAndBindVideos();
+
+            //set listener for onRefreshListener, otherwise it will be loading indeterminately
+            swipeRefreshLayout.SetOnRefreshListener(this);
+
             return view;
         }
 
@@ -89,12 +105,12 @@ namespace HMV.Droid.Fragments
 
         private async void loadAndBindVideos()
         {
-            if(App.VideosList==null)
-                videosList = await YoutubeService.loadDataAsync();
+            videosList = await YoutubeService.loadDataAsync();
 
             videosList = App.VideosList;
             videosAdapter.addVideos(videosList);
 
+            swipeRefreshLayout.Refreshing = false;
             progressBar.Visibility = ViewStates.Invisible;
 
             if (selectedItemPosition != RecyclerView.InvalidType)
@@ -107,5 +123,9 @@ namespace HMV.Droid.Fragments
             Cheeseknife.Reset(this);
         }
 
+        public void OnRefresh()
+        {
+            loadAndBindVideos();
+        }
     }
 }

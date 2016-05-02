@@ -49,6 +49,11 @@ namespace HMV.Shared.Service
 
                     YoutubeResponse channel = JsonConvert.DeserializeObject<YoutubeResponse>(stringResponse);
 
+                    bool isAppVideosListNotNull = App.VideosList != null && App.VideosList.Count > 0;
+
+                    //if (!isAppVideosListNotNull)
+                    //    videoDb.DeleteAllVideos(); //clearing the database
+
                     if (channel != null && channel.items.Count > 0)
                     {
                         foreach (YoutubeItem item in channel.items)
@@ -62,21 +67,28 @@ namespace HMV.Shared.Service
                                     item.snippet.thumbnails.maxres != null ? item.snippet.thumbnails.maxres.url : "",
                                     item.snippet.playlistId);
 
-                                //adding to database
-                                videoDb.SaveVideo(video);
+                                if (isAppVideosListNotNull)
+                                {
+                                    if (!App.VideosList.Exists(
+                                    element => element.VideoId == video.VideoId))
+                                        videoDb.SaveVideo(video); //adding to database if video does not exists
+                                }
+                                else
+                                {
+                                    videoDb.SaveVideo(video); //adding to database when App.VideosList is not initiated
+                                }
                             }
                         }
                     }
                 }
 
-                
-                if(App.VideosList!=null && App.VideosList.Count>0)
+                if (App.VideosList != null && App.VideosList.Count > 0)
                     App.VideosList.Clear();
 
                 //getting data from database
                 App.VideosList = videoDb.GetVideos().ToList();
 
-                if (App.VideosList.Count>0)
+                if (App.VideosList.Count > 0)
                     return App.VideosList;
                 else
                     return null;
@@ -85,7 +97,9 @@ namespace HMV.Shared.Service
             {
                 return null;
             }
-
         }
     }
 }
+
+
+

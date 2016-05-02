@@ -18,13 +18,14 @@ namespace HMV.Shared.Data
             //Xamarin forms needs to be initiated before this
             database = DependencyService.Get<ISQLite>().GetConnection();
 
-            if(CrossConnectivity.Current.IsConnected)
-                database.DropTable<Video>();
-
-            // create the table
-            database.CreateTable<Video>();
+            CreateTable();
         }
        
+        public void CreateTable()
+        {
+            database.CreateTable<Video>();
+        }
+
         public IEnumerable<Video> GetVideos()
         {
             lock (locker)
@@ -56,13 +57,28 @@ namespace HMV.Shared.Data
                 }
             }
         }
-
+        
         public int DeleteVideo(int id)
         {
             lock (locker)
             {
                 return database.Delete<Video>(id);
             }
+        }
+        public void DeleteAllVideos()
+        {
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                lock (locker)
+                {
+                    database.Query<Video>("DELETE FROM [Video]");
+                }
+            }
+        }
+
+        public void DropTable()
+        {
+            database.DropTable<Video>();
         }
     }
 }
