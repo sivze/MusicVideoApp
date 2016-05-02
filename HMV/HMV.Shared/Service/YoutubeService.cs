@@ -1,6 +1,7 @@
-﻿using HMV.Droid.Util;
+﻿
 using HMV.Shared.Data;
 using HMV.Shared.Models;
+using HMV.Shared.Util;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 using System;

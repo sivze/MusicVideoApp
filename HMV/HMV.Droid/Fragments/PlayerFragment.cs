@@ -8,7 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Com.Lilarcor.Cheeseknife;
 using Google.YouTube.Player;
-using HMV.Droid.Util;
+using HMV.Shared.Util;
 using HMV.Shared.Models;
 using Android.Support.V7.Widget;
 using Android.Content.Res;

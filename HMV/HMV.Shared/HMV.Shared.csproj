@@ -39,7 +39,6 @@
     <Compile Include="App.cs" />
     <Compile Include="Data\ISQLite.cs" />
     <Compile Include="Data\VideoDatabase.cs" />
-    <Compile Include="Data\VideosContract.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Models\YoutubeItem.cs" />
     <Compile Include="Models\YoutubeResponse.cs" />
