@@ -1,0 +1,107 @@
+{
+  "playListName":"Top10",
+  "youtubePlaylistId":"PL9MZvRGPZkoHcqMpRYisgulnR-eD0SLKl",
+  "lastUpdated":"UTC Time",
+  "videos": [
+    {
+      "id":1,
+      "videoTitle":"Red Hot Chili Peppers - Goodbye Angels [OFFICIAL VIDEO]",
+      "provider":"ArunDJ",
+      "duration":"4:21",
+      "tag":"MustSee",
+      "videoId": "txTqtm58AqM",
+      "imageURL": "https://i.ytimg.com/vi/txTqtm58AqM/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/896424c9a03edd5999f17fa4f8e54679.mp4"
+    },
+    {
+      "id":2,
+      "videoTitle":"Miley Cyrus - Malibu (Official Video)",
+      "provider":"MalcomR",
+      "duration":"",
+      "tag":"Explicit",
+      "videoId": "8j9zMok6two",
+      "imageURL": "https://i.ytimg.com/vi/8j9zMok6two/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/8e63412fa9c1a34e25187439be560baa.mp4"
+    },
+    {
+      "id":3,
+      "videoTitle":"JP Cooper - Passport Home (Official Video)",
+      "provider":"UnknownAh",
+      "duration":"3:71",
+      "tag":"Relax",
+      "videoId": "KZ4AY_OMfGg",
+      "imageURL": "https://i.ytimg.com/vi/KZ4AY_OMfGg/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/72685b009257818484b86080a76e0760.mp4"
+    },
+    {
+      "id":4,
+      "videoTitle":"Lindsey Stirling - Lost Girls",
+      "provider":"Dammit",
+      "duration":"3:31",
+      "tag":"Country",
+      "videoId": "pWn7PYm-W90",
+      "imageURL": "https://i.ytimg.com/vi/pWn7PYm-W90/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/f4dcfee804abc9d6199d4a7421bd898a.mp4"
+    },
+    {
+      "id":5,
+      "videoTitle":"The Chainsmokers Closer (Official Video)",
+      "provider":"Psyco",
+      "duration":"3:41",
+      "tag":"HipHop",
+      "videoId": "0zGcUoRlhmw",
+      "imageURL": "https://i.ytimg.com/vi/0zGcUoRlhmw/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/b26aadf4f7184482355659e37408c972.mp4"
+    },
+    {
+      "id":6,
+      "videoTitle":"Khalid - Location",
+      "provider":"Mangustaan",
+      "duration":"3:41",
+      "tag":"Pop",
+      "videoId": "by3yRdlQvzs",
+      "imageURL": "https://i.ytimg.com/vi/by3yRdlQvzs/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/ce39f72141fc7af43e0c28c0205d04e2.mp4"
+    },
+    {
+      "id":7,
+      "videoTitle":"Fifth Harmony Work from Home",
+      "provider":"GermanyBr",
+      "duration":"3:03",
+      "tag":"Blues",
+      "videoId": "5GL9JoH4Sws",
+      "imageURL": "https://i.ytimg.com/vi/5GL9JoH4Sws/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/3010acd0f079f4888cfc96e09f189854.mp4"
+    },
+    {
+      "id":8,
+      "videoTitle":"Harry Styles Sign of the Times (Official Video)",
+      "provider":"Kovalod",
+      "duration":"5:41",
+      "tag":"General",
+      "videoId": "qN4ooNx77u0",
+      "imageURL": "https://i.ytimg.com/vi/qN4ooNx77u0/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/87c9bb7370877fa7eb0930553f95e3eb.mp4"
+    },
+    {
+      "id":9,
+      "videoTitle":"Tohi Tabestoon (Summer)",
+      "provider":"SaaniEr",
+      "duration":"2:03",
+      "tag":"Dance",
+      "videoId": "xAf-0w_N_lY",
+      "imageURL": "https://i.ytimg.com/vi/xAf-0w_N_lY/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/7b19c950962c62644fbffd0557c1b373.mp4"
+    },
+    {
+      "id":10,
+      "videoTitle":"Sidney B New Girl",
+      "provider":"NeverAsk",
+      "duration":"3:02",
+      "tag":"EDM",
+      "videoId": "tAsnM5VKmuc",
+      "imageURL": "https://i.ytimg.com/vi/tAsnM5VKmuc/maxresdefault.jpg",
+      "gifURL":"https://gifs.vevo.com/3c02ba5cb870a6dc55ff595baf0c998e.mp4"
+    }
+  ]
+}
